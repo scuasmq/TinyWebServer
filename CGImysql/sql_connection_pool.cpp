@@ -42,10 +42,12 @@ void connection_pool::init(string url, string User, string PassWord, string DBNa
 			cout << "Error:" << mysql_error(con);
 			exit(1);
 		}
+		printf("%s\n", PassWord.c_str());
 		con = mysql_real_connect(con, url.c_str(), User.c_str(), PassWord.c_str(), DBName.c_str(), Port, NULL, 0);
 
 		if (con == NULL)
 		{
+			printf("error:%s\n", mysql_error(con));
 			cout << "Error: " << mysql_error(con);
 			exit(1);
 		}
@@ -53,6 +55,7 @@ void connection_pool::init(string url, string User, string PassWord, string DBNa
 		++FreeConn;
 	}
 
+        printf("init\n");
 	reserve = sem(FreeConn);
 	
 	this->MaxConn = FreeConn;

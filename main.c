@@ -102,14 +102,22 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    printf("creat log\n");
+
     int port = atoi(argv[1]);
 
     //忽略SIGPIPE信号
     addsig(SIGPIPE, SIG_IGN);
 
+    printf("sigpipe\n");
+
     //单例模式创建数据库连接池
     connection_pool *connPool = connection_pool::GetInstance();
-    connPool->init("localhost", "root", "root", "qgydb", 3306, 8);
+    connPool->init("localhost", "root", "root", "yourdb", 3306, 8);
+ 
+
+    printf("break\n");
+
 
     //创建线程池
     threadpool<http_conn> *pool = NULL;
